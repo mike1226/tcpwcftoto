@@ -4,7 +4,7 @@
   <service port="100001" assembly="TotoLogic.dll" class="Toto.Logic.UserClass" methed="RegUser" para="strJsonUser"></service>
 
   <service port="100002" assembly="TotoLogic.dll" class="Toto.Logic.UserClass" methed="LoginUser" para="strJsonUser"></service>
-
+  <!--添加一种赛事类型-->
   <service port="200001" assembly="TotoLogic.dll" class="Toto.Logic.LeagueClass" methed="RegistLeague"
            para="strJsonData">
   </service>
