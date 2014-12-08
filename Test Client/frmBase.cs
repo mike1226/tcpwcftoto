@@ -7,10 +7,14 @@ using Toto.Services;
 
 namespace Test_Client
 {
-    public class frmBase : Form
+    public partial class frmBase : Form
     {
+        public frmBase()
+        {
+            InitializeComponent();
+        }
         /// <summary>
-        ///     取得服务器方法
+        /// 取得服务器方法
         /// </summary>
         /// <param name="dto">发送的参数</param>
         /// <returns></returns>
