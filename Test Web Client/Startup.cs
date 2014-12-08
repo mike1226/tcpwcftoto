@@ -1,11 +1,15 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using Test_Web_Client;
 
-[assembly: OwinStartupAttribute(typeof(Test_Web_Client.Startup))]
+[assembly: OwinStartup(typeof (Startup))]
+
 namespace Test_Web_Client
 {
-    public partial class Startup {
-        public void Configuration(IAppBuilder app) {
+    public partial class Startup
+    {
+        public void Configuration(IAppBuilder app)
+        {
             ConfigureAuth(app);
         }
     }

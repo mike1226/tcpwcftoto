@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using System;
+﻿using System;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
+using Microsoft.AspNet.Identity;
 using Test_Web_Client.Models;
 
 namespace Test_Web_Client.Account
@@ -14,14 +11,14 @@ namespace Test_Web_Client.Account
         protected void CreateUser_Click(object sender, EventArgs e)
         {
             var manager = new UserManager();
-            var user = new ApplicationUser() { UserName = UserName.Text };
+            var user = new ApplicationUser {UserName = UserName.Text};
             IdentityResult result = manager.Create(user, Password.Text);
             if (result.Succeeded)
             {
-                IdentityHelper.SignIn(manager, user, isPersistent: false);
+                IdentityHelper.SignIn(manager, user, false);
                 IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
             }
-            else 
+            else
             {
                 ErrorMessage.Text = result.Errors.FirstOrDefault();
             }

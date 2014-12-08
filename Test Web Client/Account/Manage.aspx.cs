@@ -1,29 +1,21 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI;
+using Microsoft.AspNet.Identity;
 using Test_Web_Client.Models;
 
 namespace Test_Web_Client.Account
 {
-    public partial class Manage : System.Web.UI.Page
+    public partial class Manage : Page
     {
-        protected string SuccessMessage
-        {
-            get;
-            private set;
-        }
+        protected string SuccessMessage { get; private set; }
 
-        protected bool CanRemoveExternalLogins
-        {
-            get;
-            private set;
-        }
+        protected bool CanRemoveExternalLogins { get; private set; }
 
         private bool HasPassword(UserManager manager)
         {
-            var user = manager.FindById(User.Identity.GetUserId());
+            ApplicationUser user = manager.FindById(User.Identity.GetUserId());
             return (user != null && user.PasswordHash != null);
         }
 
@@ -32,7 +24,7 @@ namespace Test_Web_Client.Account
             if (!IsPostBack)
             {
                 // Determine the sections to render
-                UserManager manager = new UserManager();
+                var manager = new UserManager();
                 if (HasPassword(manager))
                 {
                     changePasswordHolder.Visible = true;
@@ -45,17 +37,20 @@ namespace Test_Web_Client.Account
                 CanRemoveExternalLogins = manager.GetLogins(User.Identity.GetUserId()).Count() > 1;
 
                 // Render success message
-                var message = Request.QueryString["m"];
+                string message = Request.QueryString["m"];
                 if (message != null)
                 {
                     // Strip the query string from action
                     Form.Action = ResolveUrl("~/Account/Manage");
 
                     SuccessMessage =
-                        message == "ChangePwdSuccess" ? "Your password has been changed."
-                        : message == "SetPwdSuccess" ? "Your password has been set."
-                        : message == "RemoveLoginSuccess" ? "The account was removed."
-                        : String.Empty;
+                        message == "ChangePwdSuccess"
+                            ? "Your password has been changed."
+                            : message == "SetPwdSuccess"
+                                ? "Your password has been set."
+                                : message == "RemoveLoginSuccess"
+                                    ? "The account was removed."
+                                    : String.Empty;
                     successMessage.Visible = !String.IsNullOrEmpty(SuccessMessage);
                 }
             }
@@ -65,8 +60,9 @@ namespace Test_Web_Client.Account
         {
             if (IsValid)
             {
-                UserManager manager = new UserManager();
-                IdentityResult result = manager.ChangePassword(User.Identity.GetUserId(), CurrentPassword.Text, NewPassword.Text);
+                var manager = new UserManager();
+                IdentityResult result = manager.ChangePassword(User.Identity.GetUserId(), CurrentPassword.Text,
+                    NewPassword.Text);
                 if (result.Succeeded)
                 {
                     Response.Redirect("~/Account/Manage?m=ChangePwdSuccess");
@@ -83,7 +79,7 @@ namespace Test_Web_Client.Account
             if (IsValid)
             {
                 // Create the local login info and link the local account to the user
-                UserManager manager = new UserManager();
+                var manager = new UserManager();
                 IdentityResult result = manager.AddPassword(User.Identity.GetUserId(), password.Text);
                 if (result.Succeeded)
                 {
@@ -98,17 +94,18 @@ namespace Test_Web_Client.Account
 
         public IEnumerable<UserLoginInfo> GetLogins()
         {
-            UserManager manager = new UserManager();
-            var accounts = manager.GetLogins(User.Identity.GetUserId());
+            var manager = new UserManager();
+            IList<UserLoginInfo> accounts = manager.GetLogins(User.Identity.GetUserId());
             CanRemoveExternalLogins = accounts.Count() > 1 || HasPassword(manager);
             return accounts;
         }
 
         public void RemoveLogin(string loginProvider, string providerKey)
         {
-            UserManager manager = new UserManager();
-            var result = manager.RemoveLogin(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
-            var msg = result.Succeeded
+            var manager = new UserManager();
+            IdentityResult result = manager.RemoveLogin(User.Identity.GetUserId(),
+                new UserLoginInfo(loginProvider, providerKey));
+            string msg = result.Succeeded
                 ? "?m=RemoveLoginSuccess"
                 : String.Empty;
             Response.Redirect("~/Account/Manage" + msg);
@@ -116,7 +113,7 @@ namespace Test_Web_Client.Account
 
         private void AddErrors(IdentityResult result)
         {
-            foreach (var error in result.Errors)
+            foreach (string error in result.Errors)
             {
                 ModelState.AddModelError("", error);
             }

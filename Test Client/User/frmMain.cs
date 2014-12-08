@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Test_Client
@@ -24,13 +17,13 @@ namespace Test_Client
 
         private void dgvAdmin_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DetailConfirm dc = new DetailConfirm();
+            var dc = new DetailConfirm();
             dc.ShowDialog();
         }
 
         private void btnCreateUser_Click(object sender, EventArgs e)
         {
-            frmRegister frmReg = new frmRegister();
+            var frmReg = new frmRegister();
             frmReg.ShowDialog();
         }
     }

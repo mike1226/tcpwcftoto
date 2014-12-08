@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using System.Security.Claims;
+using System.Web;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using System.Web;
-using System;
 using Test_Web_Client.Models;
 
 namespace Test_Web_Client.Models
@@ -21,6 +22,7 @@ namespace Test_Web_Client.Models
     }
 
     #region Helpers
+
     public class UserManager : UserManager<ApplicationUser>
     {
         public UserManager()
@@ -37,15 +39,16 @@ namespace Test_Web_Client
         // Used for XSRF when linking external logins
         public const string XsrfKey = "XsrfId";
 
+        public const string ProviderNameKey = "providerName";
+
         public static void SignIn(UserManager manager, ApplicationUser user, bool isPersistent)
         {
             IAuthenticationManager authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
             authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
-            authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+            ClaimsIdentity identity = manager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+            authenticationManager.SignIn(new AuthenticationProperties {IsPersistent = isPersistent}, identity);
         }
 
-        public const string ProviderNameKey = "providerName";
         public static string GetProviderNameFromRequest(HttpRequest request)
         {
             return request[ProviderNameKey];
@@ -58,7 +61,9 @@ namespace Test_Web_Client
 
         private static bool IsLocalUrl(string url)
         {
-            return !string.IsNullOrEmpty(url) && ((url[0] == '/' && (url.Length == 1 || (url[1] != '/' && url[1] != '\\'))) || (url.Length > 1 && url[0] == '~' && url[1] == '/'));
+            return !string.IsNullOrEmpty(url) &&
+                   ((url[0] == '/' && (url.Length == 1 || (url[1] != '/' && url[1] != '\\'))) ||
+                    (url.Length > 1 && url[0] == '~' && url[1] == '/'));
         }
 
         public static void RedirectToReturnUrl(string returnUrl, HttpResponse response)
@@ -73,5 +78,6 @@ namespace Test_Web_Client
             }
         }
     }
+
     #endregion
 }

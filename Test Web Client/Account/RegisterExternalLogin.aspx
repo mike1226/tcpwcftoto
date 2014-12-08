@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Register an external login" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="RegisterExternalLogin.aspx.cs" Inherits="Test_Web_Client.Account.RegisterExternalLogin" Async="true" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
-<h3>Register with your <%: ProviderName %> account</h3>
+    <h3>Register with your <%: ProviderName %> account</h3>
 
     <asp:PlaceHolder runat="server">
         <div class="form-horizontal">
@@ -18,7 +18,7 @@
                 <div class="col-md-10">
                     <asp:TextBox runat="server" ID="userName" CssClass="form-control" />
                     <asp:RequiredFieldValidator runat="server" ControlToValidate="userName"
-                        Display="Dynamic" CssClass="text-danger" ErrorMessage="User name is required" />
+                                                Display="Dynamic" CssClass="text-danger" ErrorMessage="User name is required" />
                     <asp:ModelErrorMessage runat="server" ModelStateKey="UserName" CssClass="text-error" />
                 </div>
             </div>

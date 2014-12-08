@@ -1,10 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <root>
   <service port="100001" assembly="TotoLogic.dll" class="Toto.Logic.UserClass" methed="RegUser" para="strJsonUser"></service>
 
   <service port="100002" assembly="TotoLogic.dll" class="Toto.Logic.UserClass" methed="LoginUser" para="strJsonUser"></service>
 
-  <service port="200001" assembly="TotoLogic.dll" class="Toto.Logic.LeagueClass" methed="RegistLeague" para="strJsonData"></service>
-  
-  <service port="900001" assembly="TotoLogic.dll" class="Toto.Logic.SystemClass" methed="GetGameList" para="strJsonData"></service>
+  <service port="200001" assembly="TotoLogic.dll" class="Toto.Logic.LeagueClass" methed="RegistLeague"
+           para="strJsonData">
+  </service>
+
+  <service port="900001" assembly="TotoLogic.dll" class="Toto.Logic.SystemClass" methed="GetGameList"
+           para="strJsonData">
+  </service>
 </root>

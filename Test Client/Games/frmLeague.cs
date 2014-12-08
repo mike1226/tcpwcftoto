@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using Test_Client.TotoService;
 using Toto.DbModel;
 using Toto.Services;
 
@@ -20,8 +13,9 @@ namespace Test_Client
         {
             InitializeComponent();
         }
+
         /// <summary>
-        /// 画面初始化
+        ///     画面初始化
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -39,11 +33,11 @@ namespace Test_Client
         }
 
         /// <summary>
-        /// 绑定比赛信息
+        ///     绑定比赛信息
         /// </summary>
         private async void BindGameKind()
         {
-            var dto = new RequestDTO { Port = "900001", Content = "", UserName = "", ChkCode = "" };
+            var dto = new RequestDTO {Port = "900001", Content = "", UserName = "", ChkCode = ""};
 
             // 取回服务器处理结果
             ResponseDTO rsp = await CallService(dto);
@@ -60,28 +54,32 @@ namespace Test_Client
             cbxLeague.DataSource = datas;
             cbxLeague.DisplayMember = "KIND_NAME";
             cbxLeague.ValueMember = "KIND_ID";
-            
         }
 
         /// <summary>
-        /// 添加比赛信息
+        ///     添加比赛信息
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async  void btnSubmit_Click(object sender, EventArgs e)
+        private async void btnSubmit_Click(object sender, EventArgs e)
         {
-
             if (!ChkSubmit())
             {
                 return;
             }
 
             var obj = new T_LEAGUE();
-            obj.LEAGUE_KIND = (int)cbxLeague.SelectedValue;
+            obj.LEAGUE_KIND = (int) cbxLeague.SelectedValue;
             obj.LEAGUE_NAME = txtName.Text;
             obj.LEAGUE_ENNAME = txtEnName.Text;
 
-            var dto = new RequestDTO { Port = "200001", Content = JsonConvert.SerializeObject(obj), UserName = "", ChkCode = "" };
+            var dto = new RequestDTO
+            {
+                Port = "200001",
+                Content = JsonConvert.SerializeObject(obj),
+                UserName = "",
+                ChkCode = ""
+            };
 
             // 取回服务器处理结果
             ResponseDTO rsp = await CallService(dto);
@@ -91,7 +89,7 @@ namespace Test_Client
 
         private bool ChkSubmit()
         {
-            var ret = true;
+            bool ret = true;
             if (string.IsNullOrEmpty(cbxLeague.Text))
             {
                 ret = false;

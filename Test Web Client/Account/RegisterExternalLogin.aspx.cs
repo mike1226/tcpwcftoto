@@ -1,22 +1,24 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
-using System;
+﻿using System;
 using System.Web;
+using System.Web.UI;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using Test_Web_Client.Models;
 
 namespace Test_Web_Client.Account
 {
-    public partial class RegisterExternalLogin : System.Web.UI.Page
+    public partial class RegisterExternalLogin : Page
     {
         protected string ProviderName
         {
-            get { return (string)ViewState["ProviderName"] ?? String.Empty; }
+            get { return (string) ViewState["ProviderName"] ?? String.Empty; }
             private set { ViewState["ProviderName"] = value; }
         }
 
         protected string ProviderAccountKey
         {
-            get { return (string)ViewState["ProviderAccountKey"] ?? String.Empty; }
+            get { return (string) ViewState["ProviderAccountKey"] ?? String.Empty; }
             private set { ViewState["ProviderAccountKey"] = value; }
         }
 
@@ -31,27 +33,29 @@ namespace Test_Web_Client.Account
             if (!IsPostBack)
             {
                 var manager = new UserManager();
-                var loginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo();
+                ExternalLoginInfo loginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo();
                 if (loginInfo == null)
                 {
                     Response.Redirect("~/Account/Login");
                 }
-                var user = manager.Find(loginInfo.Login);
+                ApplicationUser user = manager.Find(loginInfo.Login);
                 if (user != null)
                 {
-                    IdentityHelper.SignIn(manager, user, isPersistent: false);
+                    IdentityHelper.SignIn(manager, user, false);
                     IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                 }
                 else if (User.Identity.IsAuthenticated)
                 {
                     // Apply Xsrf check when linking
-                    var verifiedloginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo(IdentityHelper.XsrfKey, User.Identity.GetUserId());
+                    ExternalLoginInfo verifiedloginInfo =
+                        Context.GetOwinContext()
+                            .Authentication.GetExternalLoginInfo(IdentityHelper.XsrfKey, User.Identity.GetUserId());
                     if (verifiedloginInfo == null)
                     {
                         Response.Redirect("~/Account/Login");
                     }
 
-                    var result = manager.AddLogin(User.Identity.GetUserId(), verifiedloginInfo.Login);
+                    IdentityResult result = manager.AddLogin(User.Identity.GetUserId(), verifiedloginInfo.Login);
                     if (result.Succeeded)
                     {
                         IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
@@ -59,7 +63,6 @@ namespace Test_Web_Client.Account
                     else
                     {
                         AddErrors(result);
-                        return;
                     }
                 }
                 else
@@ -67,8 +70,8 @@ namespace Test_Web_Client.Account
                     userName.Text = loginInfo.DefaultUserName;
                 }
             }
-        }        
-        
+        }
+
         protected void LogIn_Click(object sender, EventArgs e)
         {
             CreateAndLoginUser();
@@ -81,11 +84,11 @@ namespace Test_Web_Client.Account
                 return;
             }
             var manager = new UserManager();
-            var user = new ApplicationUser() { UserName = userName.Text };
+            var user = new ApplicationUser {UserName = userName.Text};
             IdentityResult result = manager.Create(user);
             if (result.Succeeded)
             {
-                var loginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo();
+                ExternalLoginInfo loginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo();
                 if (loginInfo == null)
                 {
                     Response.Redirect("~/Account/Login");
@@ -94,7 +97,7 @@ namespace Test_Web_Client.Account
                 result = manager.AddLogin(user.Id, loginInfo.Login);
                 if (result.Succeeded)
                 {
-                    IdentityHelper.SignIn(manager, user, isPersistent: false);
+                    IdentityHelper.SignIn(manager, user, false);
                     IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
                     return;
                 }
@@ -102,9 +105,9 @@ namespace Test_Web_Client.Account
             AddErrors(result);
         }
 
-        private void AddErrors(IdentityResult result) 
+        private void AddErrors(IdentityResult result)
         {
-            foreach (var error in result.Errors) 
+            foreach (string error in result.Errors)
             {
                 ModelState.AddModelError("", error);
             }
