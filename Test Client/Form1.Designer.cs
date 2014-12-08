@@ -107,15 +107,15 @@
             this.lblMsg.AutoSize = true;
             this.lblMsg.Location = new System.Drawing.Point(21, 237);
             this.lblMsg.Name = "lblMsg";
-            this.lblMsg.Size = new System.Drawing.Size(55, 15);
+            this.lblMsg.Size = new System.Drawing.Size(105, 15);
             this.lblMsg.TabIndex = 7;
-            this.lblMsg.Text = "label3";
+            this.lblMsg.Text = "显示警告消息 ";
             // 
             // btnLeague
             // 
-            this.btnLeague.Location = new System.Drawing.Point(216, 261);
+            this.btnLeague.Location = new System.Drawing.Point(183, 252);
             this.btnLeague.Name = "btnLeague";
-            this.btnLeague.Size = new System.Drawing.Size(75, 23);
+            this.btnLeague.Size = new System.Drawing.Size(108, 47);
             this.btnLeague.TabIndex = 8;
             this.btnLeague.Text = "联赛信息";
             this.btnLeague.UseVisualStyleBackColor = true;
