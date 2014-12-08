@@ -1,0 +1,699 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TotoDbContent.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="T_ACCOUNT_CASH">
+          <Key>
+            <PropertyRef Name="CASH_ID" />
+          </Key>
+          <Property Name="CASH_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="CASH_MONEY" Type="int" />
+          <Property Name="CASH_TIME" Type="datetime" />
+          <Property Name="CASH_STS" Type="int" />
+          <Property Name="CASH_BANK" Type="nvarchar" MaxLength="50" />
+          <Property Name="CASH_MT_TIME" Type="datetime" />
+          <Property Name="CASH_CHKCOD" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_ALERT_MSG">
+          <Key>
+            <PropertyRef Name="ALERT_ID" />
+          </Key>
+          <Property Name="ALERT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ALERT_KIND" Type="int" />
+          <Property Name="ALERT_TITLE" Type="nvarchar" MaxLength="50" />
+          <Property Name="ALERT_MSG" Type="nvarchar" MaxLength="500" />
+          <Property Name="ALERT_TIM" Type="datetime" />
+          <Property Name="ALERT_IP" Type="nvarchar" MaxLength="20" />
+          <Property Name="ALERT_STS" Type="int" />
+        </EntityType>
+        <EntityType Name="T_GAME">
+          <Key>
+            <PropertyRef Name="GAME_ID" />
+          </Key>
+          <Property Name="GAME_ID" Type="int" Nullable="false" />
+          <Property Name="GAME_KIND" Type="int" />
+          <Property Name="GAME_GRP" Type="nvarchar" MaxLength="50" />
+          <Property Name="GAME_GRP_ID" Type="int" />
+          <Property Name="GAME_LEAGUE" Type="int" />
+          <Property Name="M_TEAM" Type="int" />
+          <Property Name="M_TEAM_NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="C_TEAM" Type="int" />
+          <Property Name="C_TEAM_NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="GAME_BEGIN" Type="datetime" />
+          <Property Name="GAME_STS" Type="int" />
+        </EntityType>
+        <EntityType Name="T_GAME_BET">
+          <Key>
+            <PropertyRef Name="BET_ID" />
+          </Key>
+          <Property Name="BET_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GAME_ID" Type="int" />
+          <Property Name="BET_KIND" Type="int" />
+          <Property Name="BETA" Type="float" />
+          <Property Name="BETB" Type="float" />
+          <Property Name="BETC" Type="float" />
+          <Property Name="BET_TIME" Type="datetime" />
+          <Property Name="GET_SINGLE" Type="bit" />
+        </EntityType>
+        <EntityType Name="T_GAME_KIND">
+          <Key>
+            <PropertyRef Name="KIND_ID" />
+          </Key>
+          <Property Name="KIND_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KIND_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="KIND_ENNAME" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="T_GAME_ORDER">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+          </Key>
+          <Property Name="ORDER_ID" Type="int" Nullable="false" />
+          <Property Name="ORDER_GRP" Type="nvarchar" MaxLength="30" />
+          <Property Name="ORDER_KIND" Type="int" />
+          <Property Name="ORDER_GAME_ID" Type="int" />
+          <Property Name="ORDER_BETKIND" Type="int" />
+          <Property Name="ORDER_BETTEAM" Type="int" />
+          <Property Name="ORDER_BETMONEY" Type="int" />
+          <Property Name="ORDER_BETID" Type="int" />
+          <Property Name="ORDER_BET" Type="float" />
+          <Property Name="ORDER_TIME" Type="datetime" />
+          <Property Name="CHK_CODE" Type="nvarchar" MaxLength="100" />
+          <Property Name="ORDER_RET" Type="int" />
+          <Property Name="CHK_RETCOD" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="T_GAME_RET">
+          <Key>
+            <PropertyRef Name="RET_ID" />
+          </Key>
+          <Property Name="RET_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GAME_ID" Type="int" />
+          <Property Name="M_POINT" Type="int" />
+          <Property Name="C_POINT" Type="int" />
+          <Property Name="RET_TIME" Type="datetime" />
+          <Property Name="RET_STS" Type="int" />
+          <Property Name="CHK_COD" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_GAME_TEAM">
+          <Key>
+            <PropertyRef Name="TEAM_ID" />
+          </Key>
+          <Property Name="TEAM_ID" Type="int" Nullable="false" />
+          <Property Name="TEAM_NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="TEAM_ENNAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="TEAM_COUNTRY" Type="nvarchar" MaxLength="100" />
+          <Property Name="TEAM_LOGO" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="T_LEAGUE">
+          <Key>
+            <PropertyRef Name="LEAGUE_ID" />
+          </Key>
+          <Property Name="LEAGUE_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LEAGUE_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="LEAGUE_KIND" Type="int" />
+          <Property Name="LEAGUE_LOGO" Type="nvarchar" MaxLength="200" />
+          <Property Name="LEAGUE_ENNAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="LEAGUE_ORG" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_MESSAGE_BOX">
+          <Key>
+            <PropertyRef Name="MSG_ID" />
+          </Key>
+          <Property Name="MSG_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="SEND_USER" Type="nvarchar" MaxLength="50" />
+          <Property Name="MSG_TITLE" Type="nvarchar" MaxLength="50" />
+          <Property Name="MSG_CONTEXT" Type="nvarchar" MaxLength="1000" />
+          <Property Name="MSG_TIME" Type="datetime" />
+          <Property Name="MSG_STS" Type="int" />
+        </EntityType>
+        <EntityType Name="T_SITE">
+          <Key>
+            <PropertyRef Name="T_ID" />
+          </Key>
+          <Property Name="T_ID" Type="int" Nullable="false" />
+          <Property Name="INT" Type="int" />
+          <Property Name="T_CONTEXT" Type="ntext" />
+        </EntityType>
+        <EntityType Name="T_USER_ACC_DTL">
+          <Key>
+            <PropertyRef Name="ACC_DTL_ID" />
+          </Key>
+          <Property Name="ACC_DTL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ACC_DTL_MNY" Type="int" />
+          <Property Name="ACC_DTL_IO" Type="int" />
+          <Property Name="ACC_DTL_CUR" Type="int" />
+          <Property Name="ACC_DTL_TIM" Type="datetime" />
+          <Property Name="ACC_DTL_IP" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="T_USER_ACCOUNT">
+          <Key>
+            <PropertyRef Name="ACCOUNT_ID" />
+          </Key>
+          <Property Name="ACCOUNT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ACCOUNT_MNY" Type="int" />
+          <Property Name="ACCOUNT_GAME_MNY" Type="int" />
+          <Property Name="ACCOUNT_STS" Type="int" />
+          <Property Name="ACCOUNT_CHKCOD" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_USER_BASE">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="USER_GROUP_ID" Type="int" />
+          <Property Name="USER_NAME" Type="nvarchar" MaxLength="20" />
+          <Property Name="USER_PWD" Type="nvarchar" MaxLength="50" />
+          <Property Name="USER_AGENT" Type="nvarchar" MaxLength="50" />
+          <Property Name="USER_MOBIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="USER_BANK" Type="nvarchar" MaxLength="30" />
+          <Property Name="USER_BANK_ACCOUNT" Type="nvarchar" MaxLength="50" />
+          <Property Name="USER_ACC_PWD" Type="nvarchar" MaxLength="50" />
+          <Property Name="USER_GROUP" Type="int" />
+          <Property Name="USER_AGENT_LEV" Type="int" />
+          <Property Name="USER_AGENT_STS" Type="bit" />
+          <Property Name="USER_AGENT_BOUNS" Type="float" />
+          <Property Name="USER_STS" Type="int" />
+          <Property Name="USER_REG_TIME" Type="datetime" />
+          <Property Name="USER_LAST_IP" Type="nvarchar" MaxLength="20" />
+          <Property Name="USER_LAST_TIM" Type="nvarchar" MaxLength="20" />
+          <Property Name="USER_CHK_COD" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="T_USER_GROUP">
+          <Key>
+            <PropertyRef Name="USER_GROUP_ID" />
+          </Key>
+          <Property Name="USER_GROUP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_GROUP" Type="int" />
+          <Property Name="GROUP_ACC_MAX" Type="int" />
+          <Property Name="GROUP_RET_RETIO" Type="float" />
+          <Property Name="GROUP_SINGLE_MAX" Type="int" />
+          <Property Name="GROUP_BET_MAX" Type="int" />
+          <Property Name="GROUP_WIN_MAX" Type="int" />
+          <Property Name="GROUP_CASH_MAX" Type="int" />
+        </EntityType>
+        <EntityType Name="T_USER_LOGIN">
+          <Key>
+            <PropertyRef Name="USER_LOGIN_ID" />
+          </Key>
+          <Property Name="USER_LOGIN_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="USER_LOGIN_TIM" Type="datetime" />
+          <Property Name="USER_LOGIN_IP" Type="nvarchar" MaxLength="20" />
+          <Property Name="USER_LOGIN_REF" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityContainer Name="TotoDbContentStoreContainer">
+          <EntitySet Name="T_ACCOUNT_CASH" EntityType="Self.T_ACCOUNT_CASH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_ALERT_MSG" EntityType="Self.T_ALERT_MSG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_GAME" EntityType="Self.T_GAME" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_GAME_BET" EntityType="Self.T_GAME_BET" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_GAME_KIND" EntityType="Self.T_GAME_KIND" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_GAME_ORDER" EntityType="Self.T_GAME_ORDER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_GAME_RET" EntityType="Self.T_GAME_RET" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_GAME_TEAM" EntityType="Self.T_GAME_TEAM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_LEAGUE" EntityType="Self.T_LEAGUE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_MESSAGE_BOX" EntityType="Self.T_MESSAGE_BOX" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_SITE" EntityType="Self.T_SITE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_USER_ACC_DTL" EntityType="Self.T_USER_ACC_DTL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_USER_ACCOUNT" EntityType="Self.T_USER_ACCOUNT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_USER_BASE" EntityType="Self.T_USER_BASE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_USER_GROUP" EntityType="Self.T_USER_GROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_USER_LOGIN" EntityType="Self.T_USER_LOGIN" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TotoDbContent" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="T_ACCOUNT_CASH">
+          <Key>
+            <PropertyRef Name="CASH_ID" />
+          </Key>
+          <Property Name="CASH_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CASH_MONEY" Type="Int32" />
+          <Property Name="CASH_TIME" Type="DateTime" Precision="3" />
+          <Property Name="CASH_STS" Type="Int32" />
+          <Property Name="CASH_BANK" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CASH_MT_TIME" Type="DateTime" Precision="3" />
+          <Property Name="CASH_CHKCOD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="T_ALERT_MSG">
+          <Key>
+            <PropertyRef Name="ALERT_ID" />
+          </Key>
+          <Property Name="ALERT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ALERT_KIND" Type="Int32" />
+          <Property Name="ALERT_TITLE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ALERT_MSG" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ALERT_TIM" Type="DateTime" Precision="3" />
+          <Property Name="ALERT_IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ALERT_STS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="T_GAME">
+          <Key>
+            <PropertyRef Name="GAME_ID" />
+          </Key>
+          <Property Name="GAME_ID" Type="Int32" Nullable="false" />
+          <Property Name="GAME_KIND" Type="Int32" />
+          <Property Name="GAME_GRP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GAME_GRP_ID" Type="Int32" />
+          <Property Name="GAME_LEAGUE" Type="Int32" />
+          <Property Name="M_TEAM" Type="Int32" />
+          <Property Name="M_TEAM_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="C_TEAM" Type="Int32" />
+          <Property Name="C_TEAM_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="GAME_BEGIN" Type="DateTime" Precision="3" />
+          <Property Name="GAME_STS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="T_GAME_BET">
+          <Key>
+            <PropertyRef Name="BET_ID" />
+          </Key>
+          <Property Name="BET_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GAME_ID" Type="Int32" />
+          <Property Name="BET_KIND" Type="Int32" />
+          <Property Name="BETA" Type="Double" />
+          <Property Name="BETB" Type="Double" />
+          <Property Name="BETC" Type="Double" />
+          <Property Name="BET_TIME" Type="DateTime" Precision="3" />
+          <Property Name="GET_SINGLE" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="T_GAME_ORDER">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+          </Key>
+          <Property Name="ORDER_ID" Type="Int32" Nullable="false" />
+          <Property Name="ORDER_GRP" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="ORDER_KIND" Type="Int32" />
+          <Property Name="ORDER_GAME_ID" Type="Int32" />
+          <Property Name="ORDER_BETKIND" Type="Int32" />
+          <Property Name="ORDER_BETTEAM" Type="Int32" />
+          <Property Name="ORDER_BETMONEY" Type="Int32" />
+          <Property Name="ORDER_BETID" Type="Int32" />
+          <Property Name="ORDER_BET" Type="Double" />
+          <Property Name="ORDER_TIME" Type="DateTime" Precision="3" />
+          <Property Name="CHK_CODE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ORDER_RET" Type="Int32" />
+          <Property Name="CHK_RETCOD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="T_GAME_RET">
+          <Key>
+            <PropertyRef Name="RET_ID" />
+          </Key>
+          <Property Name="RET_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GAME_ID" Type="Int32" />
+          <Property Name="M_POINT" Type="Int32" />
+          <Property Name="C_POINT" Type="Int32" />
+          <Property Name="RET_TIME" Type="DateTime" Precision="3" />
+          <Property Name="RET_STS" Type="Int32" />
+          <Property Name="CHK_COD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="T_GAME_TEAM">
+          <Key>
+            <PropertyRef Name="TEAM_ID" />
+          </Key>
+          <Property Name="TEAM_ID" Type="Int32" Nullable="false" />
+          <Property Name="TEAM_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TEAM_ENNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TEAM_COUNTRY" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TEAM_LOGO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="T_LEAGUE">
+          <Key>
+            <PropertyRef Name="LEAGUE_ID" />
+          </Key>
+          <Property Name="LEAGUE_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LEAGUE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LEAGUE_KIND" Type="Int32" />
+          <Property Name="LEAGUE_LOGO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LEAGUE_ENNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LEAGUE_ORG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="T_MESSAGE_BOX">
+          <Key>
+            <PropertyRef Name="MSG_ID" />
+          </Key>
+          <Property Name="MSG_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SEND_USER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MSG_TITLE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MSG_CONTEXT" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="MSG_TIME" Type="DateTime" Precision="3" />
+          <Property Name="MSG_STS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="T_SITE">
+          <Key>
+            <PropertyRef Name="T_ID" />
+          </Key>
+          <Property Name="T_ID" Type="Int32" Nullable="false" />
+          <Property Name="INT" Type="Int32" />
+          <Property Name="T_CONTEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="T_USER_ACC_DTL">
+          <Key>
+            <PropertyRef Name="ACC_DTL_ID" />
+          </Key>
+          <Property Name="ACC_DTL_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ACC_DTL_MNY" Type="Int32" />
+          <Property Name="ACC_DTL_IO" Type="Int32" />
+          <Property Name="ACC_DTL_CUR" Type="Int32" />
+          <Property Name="ACC_DTL_TIM" Type="DateTime" Precision="3" />
+          <Property Name="ACC_DTL_IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="T_USER_ACCOUNT">
+          <Key>
+            <PropertyRef Name="ACCOUNT_ID" />
+          </Key>
+          <Property Name="ACCOUNT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ACCOUNT_MNY" Type="Int32" />
+          <Property Name="ACCOUNT_GAME_MNY" Type="Int32" />
+          <Property Name="ACCOUNT_STS" Type="Int32" />
+          <Property Name="ACCOUNT_CHKCOD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="T_USER_BASE">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="USER_GROUP_ID" Type="Int32" />
+          <Property Name="USER_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_PWD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_AGENT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_MOBIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_BANK" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="USER_BANK_ACCOUNT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_ACC_PWD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_GROUP" Type="Int32" />
+          <Property Name="USER_AGENT_LEV" Type="Int32" />
+          <Property Name="USER_AGENT_STS" Type="Boolean" />
+          <Property Name="USER_AGENT_BOUNS" Type="Double" />
+          <Property Name="USER_STS" Type="Int32" />
+          <Property Name="USER_REG_TIME" Type="DateTime" Precision="3" />
+          <Property Name="USER_LAST_IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_LAST_TIM" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_CHK_COD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="T_USER_GROUP">
+          <Key>
+            <PropertyRef Name="USER_GROUP_ID" />
+          </Key>
+          <Property Name="USER_GROUP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_GROUP" Type="Int32" />
+          <Property Name="GROUP_ACC_MAX" Type="Int32" />
+          <Property Name="GROUP_RET_RETIO" Type="Double" />
+          <Property Name="GROUP_SINGLE_MAX" Type="Int32" />
+          <Property Name="GROUP_BET_MAX" Type="Int32" />
+          <Property Name="GROUP_WIN_MAX" Type="Int32" />
+          <Property Name="GROUP_CASH_MAX" Type="Int32" />
+        </EntityType>
+        <EntityType Name="T_USER_LOGIN">
+          <Key>
+            <PropertyRef Name="USER_LOGIN_ID" />
+          </Key>
+          <Property Name="USER_LOGIN_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_LOGIN_TIM" Type="DateTime" Precision="3" />
+          <Property Name="USER_LOGIN_IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_LOGIN_REF" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="TotoLocalDbEntities" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="T_ACCOUNT_CASH" EntityType="Self.T_ACCOUNT_CASH" />
+          <EntitySet Name="T_ALERT_MSG" EntityType="Self.T_ALERT_MSG" />
+          <EntitySet Name="T_GAME" EntityType="Self.T_GAME" />
+          <EntitySet Name="T_GAME_BET" EntityType="Self.T_GAME_BET" />
+          <EntitySet Name="T_GAME_ORDER" EntityType="Self.T_GAME_ORDER" />
+          <EntitySet Name="T_GAME_RET" EntityType="Self.T_GAME_RET" />
+          <EntitySet Name="T_GAME_TEAM" EntityType="Self.T_GAME_TEAM" />
+          <EntitySet Name="T_LEAGUE" EntityType="Self.T_LEAGUE" />
+          <EntitySet Name="T_MESSAGE_BOX" EntityType="Self.T_MESSAGE_BOX" />
+          <EntitySet Name="T_SITE" EntityType="Self.T_SITE" />
+          <EntitySet Name="T_USER_ACC_DTL" EntityType="Self.T_USER_ACC_DTL" />
+          <EntitySet Name="T_USER_ACCOUNT" EntityType="Self.T_USER_ACCOUNT" />
+          <EntitySet Name="T_USER_BASE" EntityType="Self.T_USER_BASE" />
+          <EntitySet Name="T_USER_GROUP" EntityType="Self.T_USER_GROUP" />
+          <EntitySet Name="T_USER_LOGIN" EntityType="Self.T_USER_LOGIN" />
+          <EntitySet Name="T_GAME_KIND" EntityType="TotoDbContent.T_GAME_KIND" />
+        </EntityContainer>
+        <EntityType Name="T_GAME_KIND">
+          <Key>
+            <PropertyRef Name="KIND_ID" />
+          </Key>
+          <Property Name="KIND_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KIND_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KIND_ENNAME" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TotoDbContentStoreContainer" CdmEntityContainer="TotoLocalDbEntities">
+          <EntitySetMapping Name="T_ACCOUNT_CASH">
+            <EntityTypeMapping TypeName="TotoDbContent.T_ACCOUNT_CASH">
+              <MappingFragment StoreEntitySet="T_ACCOUNT_CASH">
+                <ScalarProperty Name="CASH_ID" ColumnName="CASH_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="CASH_MONEY" ColumnName="CASH_MONEY" />
+                <ScalarProperty Name="CASH_TIME" ColumnName="CASH_TIME" />
+                <ScalarProperty Name="CASH_STS" ColumnName="CASH_STS" />
+                <ScalarProperty Name="CASH_BANK" ColumnName="CASH_BANK" />
+                <ScalarProperty Name="CASH_MT_TIME" ColumnName="CASH_MT_TIME" />
+                <ScalarProperty Name="CASH_CHKCOD" ColumnName="CASH_CHKCOD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_ALERT_MSG">
+            <EntityTypeMapping TypeName="TotoDbContent.T_ALERT_MSG">
+              <MappingFragment StoreEntitySet="T_ALERT_MSG">
+                <ScalarProperty Name="ALERT_ID" ColumnName="ALERT_ID" />
+                <ScalarProperty Name="ALERT_KIND" ColumnName="ALERT_KIND" />
+                <ScalarProperty Name="ALERT_TITLE" ColumnName="ALERT_TITLE" />
+                <ScalarProperty Name="ALERT_MSG" ColumnName="ALERT_MSG" />
+                <ScalarProperty Name="ALERT_TIM" ColumnName="ALERT_TIM" />
+                <ScalarProperty Name="ALERT_IP" ColumnName="ALERT_IP" />
+                <ScalarProperty Name="ALERT_STS" ColumnName="ALERT_STS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_GAME">
+            <EntityTypeMapping TypeName="TotoDbContent.T_GAME">
+              <MappingFragment StoreEntitySet="T_GAME">
+                <ScalarProperty Name="GAME_ID" ColumnName="GAME_ID" />
+                <ScalarProperty Name="GAME_KIND" ColumnName="GAME_KIND" />
+                <ScalarProperty Name="GAME_GRP" ColumnName="GAME_GRP" />
+                <ScalarProperty Name="GAME_GRP_ID" ColumnName="GAME_GRP_ID" />
+                <ScalarProperty Name="GAME_LEAGUE" ColumnName="GAME_LEAGUE" />
+                <ScalarProperty Name="M_TEAM" ColumnName="M_TEAM" />
+                <ScalarProperty Name="M_TEAM_NAME" ColumnName="M_TEAM_NAME" />
+                <ScalarProperty Name="C_TEAM" ColumnName="C_TEAM" />
+                <ScalarProperty Name="C_TEAM_NAME" ColumnName="C_TEAM_NAME" />
+                <ScalarProperty Name="GAME_BEGIN" ColumnName="GAME_BEGIN" />
+                <ScalarProperty Name="GAME_STS" ColumnName="GAME_STS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_GAME_BET">
+            <EntityTypeMapping TypeName="TotoDbContent.T_GAME_BET">
+              <MappingFragment StoreEntitySet="T_GAME_BET">
+                <ScalarProperty Name="BET_ID" ColumnName="BET_ID" />
+                <ScalarProperty Name="GAME_ID" ColumnName="GAME_ID" />
+                <ScalarProperty Name="BET_KIND" ColumnName="BET_KIND" />
+                <ScalarProperty Name="BETA" ColumnName="BETA" />
+                <ScalarProperty Name="BETB" ColumnName="BETB" />
+                <ScalarProperty Name="BETC" ColumnName="BETC" />
+                <ScalarProperty Name="BET_TIME" ColumnName="BET_TIME" />
+                <ScalarProperty Name="GET_SINGLE" ColumnName="GET_SINGLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_GAME_ORDER">
+            <EntityTypeMapping TypeName="TotoDbContent.T_GAME_ORDER">
+              <MappingFragment StoreEntitySet="T_GAME_ORDER">
+                <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+                <ScalarProperty Name="ORDER_GRP" ColumnName="ORDER_GRP" />
+                <ScalarProperty Name="ORDER_KIND" ColumnName="ORDER_KIND" />
+                <ScalarProperty Name="ORDER_GAME_ID" ColumnName="ORDER_GAME_ID" />
+                <ScalarProperty Name="ORDER_BETKIND" ColumnName="ORDER_BETKIND" />
+                <ScalarProperty Name="ORDER_BETTEAM" ColumnName="ORDER_BETTEAM" />
+                <ScalarProperty Name="ORDER_BETMONEY" ColumnName="ORDER_BETMONEY" />
+                <ScalarProperty Name="ORDER_BETID" ColumnName="ORDER_BETID" />
+                <ScalarProperty Name="ORDER_BET" ColumnName="ORDER_BET" />
+                <ScalarProperty Name="ORDER_TIME" ColumnName="ORDER_TIME" />
+                <ScalarProperty Name="CHK_CODE" ColumnName="CHK_CODE" />
+                <ScalarProperty Name="ORDER_RET" ColumnName="ORDER_RET" />
+                <ScalarProperty Name="CHK_RETCOD" ColumnName="CHK_RETCOD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_GAME_RET">
+            <EntityTypeMapping TypeName="TotoDbContent.T_GAME_RET">
+              <MappingFragment StoreEntitySet="T_GAME_RET">
+                <ScalarProperty Name="RET_ID" ColumnName="RET_ID" />
+                <ScalarProperty Name="GAME_ID" ColumnName="GAME_ID" />
+                <ScalarProperty Name="M_POINT" ColumnName="M_POINT" />
+                <ScalarProperty Name="C_POINT" ColumnName="C_POINT" />
+                <ScalarProperty Name="RET_TIME" ColumnName="RET_TIME" />
+                <ScalarProperty Name="RET_STS" ColumnName="RET_STS" />
+                <ScalarProperty Name="CHK_COD" ColumnName="CHK_COD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_GAME_TEAM">
+            <EntityTypeMapping TypeName="TotoDbContent.T_GAME_TEAM">
+              <MappingFragment StoreEntitySet="T_GAME_TEAM">
+                <ScalarProperty Name="TEAM_ID" ColumnName="TEAM_ID" />
+                <ScalarProperty Name="TEAM_NAME" ColumnName="TEAM_NAME" />
+                <ScalarProperty Name="TEAM_ENNAME" ColumnName="TEAM_ENNAME" />
+                <ScalarProperty Name="TEAM_COUNTRY" ColumnName="TEAM_COUNTRY" />
+                <ScalarProperty Name="TEAM_LOGO" ColumnName="TEAM_LOGO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_LEAGUE">
+            <EntityTypeMapping TypeName="TotoDbContent.T_LEAGUE">
+              <MappingFragment StoreEntitySet="T_LEAGUE">
+                <ScalarProperty Name="LEAGUE_ID" ColumnName="LEAGUE_ID" />
+                <ScalarProperty Name="LEAGUE_NAME" ColumnName="LEAGUE_NAME" />
+                <ScalarProperty Name="LEAGUE_KIND" ColumnName="LEAGUE_KIND" />
+                <ScalarProperty Name="LEAGUE_LOGO" ColumnName="LEAGUE_LOGO" />
+                <ScalarProperty Name="LEAGUE_ENNAME" ColumnName="LEAGUE_ENNAME" />
+                <ScalarProperty Name="LEAGUE_ORG" ColumnName="LEAGUE_ORG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_MESSAGE_BOX">
+            <EntityTypeMapping TypeName="TotoDbContent.T_MESSAGE_BOX">
+              <MappingFragment StoreEntitySet="T_MESSAGE_BOX">
+                <ScalarProperty Name="MSG_ID" ColumnName="MSG_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="SEND_USER" ColumnName="SEND_USER" />
+                <ScalarProperty Name="MSG_TITLE" ColumnName="MSG_TITLE" />
+                <ScalarProperty Name="MSG_CONTEXT" ColumnName="MSG_CONTEXT" />
+                <ScalarProperty Name="MSG_TIME" ColumnName="MSG_TIME" />
+                <ScalarProperty Name="MSG_STS" ColumnName="MSG_STS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_SITE">
+            <EntityTypeMapping TypeName="TotoDbContent.T_SITE">
+              <MappingFragment StoreEntitySet="T_SITE">
+                <ScalarProperty Name="T_ID" ColumnName="T_ID" />
+                <ScalarProperty Name="INT" ColumnName="INT" />
+                <ScalarProperty Name="T_CONTEXT" ColumnName="T_CONTEXT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_USER_ACC_DTL">
+            <EntityTypeMapping TypeName="TotoDbContent.T_USER_ACC_DTL">
+              <MappingFragment StoreEntitySet="T_USER_ACC_DTL">
+                <ScalarProperty Name="ACC_DTL_ID" ColumnName="ACC_DTL_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="ACC_DTL_MNY" ColumnName="ACC_DTL_MNY" />
+                <ScalarProperty Name="ACC_DTL_IO" ColumnName="ACC_DTL_IO" />
+                <ScalarProperty Name="ACC_DTL_CUR" ColumnName="ACC_DTL_CUR" />
+                <ScalarProperty Name="ACC_DTL_TIM" ColumnName="ACC_DTL_TIM" />
+                <ScalarProperty Name="ACC_DTL_IP" ColumnName="ACC_DTL_IP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_USER_ACCOUNT">
+            <EntityTypeMapping TypeName="TotoDbContent.T_USER_ACCOUNT">
+              <MappingFragment StoreEntitySet="T_USER_ACCOUNT">
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="ACCOUNT_MNY" ColumnName="ACCOUNT_MNY" />
+                <ScalarProperty Name="ACCOUNT_GAME_MNY" ColumnName="ACCOUNT_GAME_MNY" />
+                <ScalarProperty Name="ACCOUNT_STS" ColumnName="ACCOUNT_STS" />
+                <ScalarProperty Name="ACCOUNT_CHKCOD" ColumnName="ACCOUNT_CHKCOD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_USER_BASE">
+            <EntityTypeMapping TypeName="TotoDbContent.T_USER_BASE">
+              <MappingFragment StoreEntitySet="T_USER_BASE">
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="USER_GROUP_ID" ColumnName="USER_GROUP_ID" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_PWD" ColumnName="USER_PWD" />
+                <ScalarProperty Name="USER_AGENT" ColumnName="USER_AGENT" />
+                <ScalarProperty Name="USER_MOBIL" ColumnName="USER_MOBIL" />
+                <ScalarProperty Name="USER_BANK" ColumnName="USER_BANK" />
+                <ScalarProperty Name="USER_BANK_ACCOUNT" ColumnName="USER_BANK_ACCOUNT" />
+                <ScalarProperty Name="USER_ACC_PWD" ColumnName="USER_ACC_PWD" />
+                <ScalarProperty Name="USER_GROUP" ColumnName="USER_GROUP" />
+                <ScalarProperty Name="USER_AGENT_LEV" ColumnName="USER_AGENT_LEV" />
+                <ScalarProperty Name="USER_AGENT_STS" ColumnName="USER_AGENT_STS" />
+                <ScalarProperty Name="USER_AGENT_BOUNS" ColumnName="USER_AGENT_BOUNS" />
+                <ScalarProperty Name="USER_STS" ColumnName="USER_STS" />
+                <ScalarProperty Name="USER_REG_TIME" ColumnName="USER_REG_TIME" />
+                <ScalarProperty Name="USER_LAST_IP" ColumnName="USER_LAST_IP" />
+                <ScalarProperty Name="USER_LAST_TIM" ColumnName="USER_LAST_TIM" />
+                <ScalarProperty Name="USER_CHK_COD" ColumnName="USER_CHK_COD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_USER_GROUP">
+            <EntityTypeMapping TypeName="TotoDbContent.T_USER_GROUP">
+              <MappingFragment StoreEntitySet="T_USER_GROUP">
+                <ScalarProperty Name="USER_GROUP_ID" ColumnName="USER_GROUP_ID" />
+                <ScalarProperty Name="USER_GROUP" ColumnName="USER_GROUP" />
+                <ScalarProperty Name="GROUP_ACC_MAX" ColumnName="GROUP_ACC_MAX" />
+                <ScalarProperty Name="GROUP_RET_RETIO" ColumnName="GROUP_RET_RETIO" />
+                <ScalarProperty Name="GROUP_SINGLE_MAX" ColumnName="GROUP_SINGLE_MAX" />
+                <ScalarProperty Name="GROUP_BET_MAX" ColumnName="GROUP_BET_MAX" />
+                <ScalarProperty Name="GROUP_WIN_MAX" ColumnName="GROUP_WIN_MAX" />
+                <ScalarProperty Name="GROUP_CASH_MAX" ColumnName="GROUP_CASH_MAX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_USER_LOGIN">
+            <EntityTypeMapping TypeName="TotoDbContent.T_USER_LOGIN">
+              <MappingFragment StoreEntitySet="T_USER_LOGIN">
+                <ScalarProperty Name="USER_LOGIN_ID" ColumnName="USER_LOGIN_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="USER_LOGIN_TIM" ColumnName="USER_LOGIN_TIM" />
+                <ScalarProperty Name="USER_LOGIN_IP" ColumnName="USER_LOGIN_IP" />
+                <ScalarProperty Name="USER_LOGIN_REF" ColumnName="USER_LOGIN_REF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_GAME_KIND">
+            <EntityTypeMapping TypeName="TotoDbContent.T_GAME_KIND">
+              <MappingFragment StoreEntitySet="T_GAME_KIND">
+                <ScalarProperty Name="KIND_ENNAME" ColumnName="KIND_ENNAME" />
+                <ScalarProperty Name="KIND_NAME" ColumnName="KIND_NAME" />
+                <ScalarProperty Name="KIND_ID" ColumnName="KIND_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
