@@ -7,7 +7,7 @@ namespace Toto.Logic
     public class UserClass
     {
         /// <summary>
-        ///     添加用户
+        /// ユーザ新規の方法
         /// </summary>
         /// <param name="strJsonUser">用户的Json字符串</param>
         /// <returns></returns>

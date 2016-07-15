@@ -33,7 +33,7 @@ namespace Toto.Logic
             catch (Exception)
             {
                 ret.RetCode = -1;
-                ret.RetMsg = "取得比赛类别失败";
+                ret.RetMsg = "取得比赛类别失败!!";
             }
             return ret;
         }
